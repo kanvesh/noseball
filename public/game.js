@@ -5,6 +5,7 @@ const overlay = document.getElementById('overlay');
 const message = document.getElementById('message');
 const replayButton = document.getElementById('replayButton');
 const quitButton = document.getElementById('quitButton');
+const loadingMessage = document.getElementById('loadingMessage');
 
 // Initial ball position
 let ballX = canvas.width / 2;
@@ -23,6 +24,8 @@ let yourScore = 0;
 let opponentScore = 0;
 let gameActive = true; // Flag to check if the game is active
 
+let goalMessageTimeout;
+
 // Load the football image
 const footballImage = new Image();
 footballImage.src = 'football.png'; // Path to your football image
@@ -31,11 +34,14 @@ footballImage.src = 'football.png'; // Path to your football image
 let model;
 async function loadModel() {
     model = await facemesh.load();
-    startVideo();
+    setTimeout(() => {
+        loadingMessage.style.display = 'none';
+        startVideo();
+    }, 5000); // 5-second delay
 }
 
 async function startVideo() {
-    navigator.mediaDevices.getUserMedia({ video: {} })
+    navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
             video.srcObject = stream;
         })
@@ -109,6 +115,23 @@ function drawScores() {
     ctx.fillText(scoreText, canvas.width - textWidth - 10, 40); // Display scores slightly down
 }
 
+// Function to display goal message
+function displayGoalMessage() {
+    clearTimeout(goalMessageTimeout);
+    ctx.save();
+    ctx.fillStyle = 'yellow';
+    ctx.font = '48px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('GOAL!', canvas.width / 2, canvas.height / 2);
+    ctx.restore();
+    
+    goalMessageTimeout = setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        gameLoop(); // Restart the game loop to clear the message
+    }, 1000);
+}
+
 // Function to update ball position and check for goals
 function updateBallPosition() {
     ballX += ballDX;
@@ -121,6 +144,7 @@ function updateBallPosition() {
     } else if (ballX + ballRadius > canvas.width) {
         // Ball reached opponent's goal
         yourScore++;
+        displayGoalMessage();
         resetBall();
     }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noseball</title>
+    <title>Web-based Football Game with Eye Tracking</title>
     <style>
         body, html {
             margin: 0;
@@ -47,6 +47,8 @@
             background-position: center;
             display: block;
             margin: auto;
+            max-width: 100%;
+            height: auto;
         }
         video {
             position: absolute;
@@ -80,8 +82,9 @@
     <div id="banner">
         <h1>NOSEBALL</h1>
         <p>Turn your head in the direction you want the ball to move</p>
-        <p>(Please wait 5-10 seconds for the permissions popup and click on 'Allow')</p>
+        <p>(Please wait 5 seconds for the video stream to load)</p>
     </div>
+    <div id="loadingMessage">Please wait 5 seconds for the live video stream to load</div>
     <canvas id="gameCanvas" width="600" height="400"></canvas>
     <video id="playerVideo" autoplay muted></video>
     <div id="overlay" class="overlay">
