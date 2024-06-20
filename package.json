@@ -1,0 +1,15 @@
+{
+  "name": "noseball-game",
+  "version": "1.0.0",
+  "description": "A web-based football game with eye tracking",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
