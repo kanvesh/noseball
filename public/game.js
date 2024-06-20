@@ -5,6 +5,7 @@ const overlay = document.getElementById('overlay');
 const message = document.getElementById('message');
 const replayButton = document.getElementById('replayButton');
 const quitButton = document.getElementById('quitButton');
+const loadingMessage = document.getElementById('loadingMessage');
 
 // Initial ball position
 let ballX = canvas.width / 2;
@@ -37,16 +38,14 @@ async function loadModel() {
 }
 
 async function startVideo() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
         .then(stream => {
             video.srcObject = stream;
+            loadingMessage.style.display = 'none';
         })
         .catch(err => console.error('Error accessing media devices.', err));
 
     video.addEventListener('play', () => {
-        setTimeout(() => {
-            document.getElementById('loadingMessage').style.display = 'none';
-        }, 10000); // 10-second delay to hide loading message
         setInterval(detectFace, 100);
     });
 }
