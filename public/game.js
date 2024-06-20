@@ -41,7 +41,7 @@ async function loadModel() {
 }
 
 async function startVideo() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
         .then(stream => {
             video.srcObject = stream;
         })
@@ -162,50 +162,3 @@ function resetBall() {
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
     initialAvgX = null; // Reset the initial eye position
-    setTimeout(() => {
-        gameActive = true;
-    }, 1000); // 1-second delay
-}
-
-// Function to replay the game
-function replayGame() {
-    yourScore = 0;
-    opponentScore = 0;
-    gameActive = true;
-    overlay.style.display = 'none';
-    resetBall();
-}
-
-// Function to quit the game
-function quitGame() {
-    overlay.style.display = 'none';
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-// Game loop
-function gameLoop() {
-    if (gameActive) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawGoals();
-        drawBall();
-        drawScores(); // Draw scores
-        updateBallPosition();
-    }
-    requestAnimationFrame(gameLoop);
-}
-
-// Start the game loop
-gameLoop();
-loadModel();
-
-// Add event listeners for replay and quit buttons
-replayButton.addEventListener('click', () => {
-    yourScore = 0;
-    opponentScore = 0;
-    gameActive = true;
-    overlay.style.display = 'none';
-    resetBall();
-    gameLoop(); // Restart the game loop
-});
-
-quitButton.addEventListener('click', quitGame);
