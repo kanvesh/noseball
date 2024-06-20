@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web-based Football Game with Eye Tracking</title>
+    <title>NOSEBALL</title>
     <style>
         body, html {
             margin: 0;
@@ -32,15 +32,6 @@
             margin: 0;
             font-size: 1.2em;
         }
-        #loadingMessage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 24px;
-            text-align: center;
-        }
         canvas {
             background-image: url('football-field.jpg');
             background-size: cover;
@@ -51,7 +42,7 @@
             height: auto;
         }
         video {
-            position: fixed;
+            position: absolute;
             top: 10px;
             left: 10px;
             width: 150px;
@@ -84,7 +75,6 @@
         <p>Turn your head in the direction you want the ball to move</p>
         <p>(Please wait 5-10 seconds for the video stream to load)</p>
     </div>
-    <div id="loadingMessage">Please wait 5-10 seconds for the live video stream to load</div>
     <canvas id="gameCanvas" width="600" height="400"></canvas>
     <video id="playerVideo" autoplay muted></video>
     <div id="overlay" class="overlay">

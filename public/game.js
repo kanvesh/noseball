@@ -44,6 +44,9 @@ async function startVideo() {
         .catch(err => console.error('Error accessing media devices.', err));
 
     video.addEventListener('play', () => {
+        setTimeout(() => {
+            document.getElementById('loadingMessage').style.display = 'none';
+        }, 10000); // 10-second delay to hide loading message
         setInterval(detectFace, 100);
     });
 }
@@ -67,7 +70,7 @@ async function detectFace() {
         }
 
         // Adjust ball direction based on movement relative to the initial position
-        ballDX = -(avgX - initialAvgX) / 20; // Adjusted divisor to change the speed
+        ballDX = -(avgX - initialAvgX) / 10; // Adjusted divisor to change the speed
     }
 }
 
