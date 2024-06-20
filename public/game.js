@@ -5,7 +5,6 @@ const overlay = document.getElementById('overlay');
 const message = document.getElementById('message');
 const replayButton = document.getElementById('replayButton');
 const quitButton = document.getElementById('quitButton');
-const loadingMessage = document.getElementById('loadingMessage');
 
 // Initial ball position
 let ballX = canvas.width / 2;
@@ -34,10 +33,7 @@ footballImage.src = 'football.png'; // Path to your football image
 let model;
 async function loadModel() {
     model = await facemesh.load();
-    setTimeout(() => {
-        loadingMessage.style.display = 'none';
-        startVideo();
-    }, 5000); // 5-second delay
+    startVideo();
 }
 
 async function startVideo() {
