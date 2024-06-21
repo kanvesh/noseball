@@ -67,7 +67,7 @@ async function detectFace() {
         }
 
         // Adjust ball direction based on movement relative to the initial position
-        ballDX = -(avgX - initialAvgX) / 10; // Adjusted divisor to change the speed
+        ballDX = -(avgX - initialAvgX) / 50; // Adjusted divisor to change the speed
     }
 }
 
